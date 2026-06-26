@@ -1,0 +1,43 @@
+alias: enviando_id
+action: open_epaper_link.drawcustom
+metadata: {}
+data:
+  rotate: 0
+  dither: "0"
+  ttl: 60
+  refresh_type: "0"
+  dry-run: false
+  background: white
+  payload:
+    # Top-left: Fraunhofer/HealthCluster logo
+    - type: dlimg
+      url: "https://qvls.de/wp-content/uploads/2021/09/black-Fraunhofer-Gesellschaft-1.png"
+      x: 0
+      y: -10
+      xsize: 150
+      ysize: 70
+      rotate: 0
+
+    # Left/center: Drawer title
+    - type: text
+      value: "{{ drawer_title }}"
+      x: 8
+      y: 75
+      anchor: lm
+      size: 20
+      color: red
+      font: ppb.ttf
+      multine: True
+
+    # Right: QR code
+    - type: qrcode
+      data: "{{ qr_text }}"
+      x: 170
+      y: 10
+      boxsize: 5
+      border: 1
+      color: black
+      bgcolor: white
+
+target:
+  device_id: "{{ device_id }}"

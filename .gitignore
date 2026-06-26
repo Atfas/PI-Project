@@ -1,0 +1,20 @@
+# App-Inkstock
+App-Inkstock/node_modules/
+App-Inkstock/dist/
+App-Inkstock/.env
+App-Inkstock/.env.*
+App-Inkstock/android/app/build/
+
+# Plugin
+Plugin-InventreeToHomeAssistant/__pycache__/
+Plugin-InventreeToHomeAssistant/*.py[cod]
+Plugin-InventreeToHomeAssistant/*.egg-info/
+Plugin-InventreeToHomeAssistant/dist/
+Plugin-InventreeToHomeAssistant/build/
+Plugin-InventreeToHomeAssistant/.venv/
+
+# Secrets
+*.token
+*token*.txt
+.env
+.env.*
