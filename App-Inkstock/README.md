@@ -1,101 +1,70 @@
-# React + TypeScript + Vite
+# App InkStock (Android)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+App Android (React + TypeScript + Vite + [Capacitor](https://capacitorjs.com/))
+que **lê o QR code de uma gaveta**, resolve a localização correspondente no
+[InvenTree](https://inventree.org/) e permite **consultar e editar o stock**
+dessa localização diretamente no telemóvel.
 
-Currently, two official plugins are available:
+> Faz parte do [PI-Project](../README.md). O QR code lido é o gerado nas etiquetas
+> de e-paper pela [automação do Home Assistant](../HA-Webhook/README.md).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Funcionalidades
 
-## For development
+- Leitura de QR code com a câmara (via `html5-qrcode`).
+- Resolução da localização no InvenTree a partir do conteúdo do QR.
+- Edição de stock, mover itens, breadcrumb de localização e vistos recentemente.
+- Pesquisa de peças com sugestões em tempo real.
 
-Node.js v20 or v22 and npm are required.
+### Payloads de QR suportados
 
-```
+- Um id de tag/localização direto, por exemplo `TAG-001` ou `1`.
+- Um URL com o tag na query string, por exemplo
+  `https://app.example.com/?tag=TAG-001`.
+
+## Desenvolvimento
+
+Requer Node.js v20 ou v22 e npm.
+
+```bash
 npm install --include=dev
 npm run dev
 ```
 
-## InvenTree editor flow
+## Configuração (variáveis de ambiente)
 
-This app scans a tag QR code, resolves the tag id, loads the matching container from InvenTree, and lets you edit the container name through the API.
+Cria um ficheiro `.env` (dev) ou `.env.production` (build do APK) com:
 
-Supported QR payloads:
+| Variável | Descrição | Exemplo |
+|---|---|---|
+| `VITE_INVENTREE_API_BASE_URL` | Host do InvenTree (sem barra final) | `http://192.168.1.93` |
+| `VITE_INVENTREE_CONTAINER_ENDPOINT_TEMPLATE` | Endpoint da localização | `/api/stock/location/{id}/` |
+| `VITE_INVENTREE_API_TOKEN` | Token da API do InvenTree | `inv-...` |
+| `VITE_INVENTREE_AUTH_SCHEME` | Esquema de autenticação | `Token` |
+| `VITE_INVENTREE_UPDATE_METHOD` | Método de escrita | `PATCH` |
 
-- A raw tag id, for example `TAG-001`
-- A full URL that includes the tag in the query string, for example `https://app.example.com/?tag=TAG-001`
+> ⚠️ Estes ficheiros **não** são versionados (estão no `.gitignore`) porque
+> contêm o token da API. No APK, o `.env.production` é "cozido" no build, por
+> isso o `VITE_INVENTREE_API_BASE_URL` tem de ser um endereço alcançável pelo
+> telemóvel (ex: o IP do Pi na LAN).
 
-The API is configured with these environment variables:
+## Compilar o APK Android
 
-- `VITE_INVENTREE_API_BASE_URL` for the InvenTree host, for example `https://inventory.example.com`
-- `VITE_INVENTREE_CONTAINER_ENDPOINT_TEMPLATE` for the API endpoint path, defaulting to `/api/containers/{tag}/`
-- `VITE_INVENTREE_API_TOKEN` for the API token, if your InvenTree instance requires authentication
-- `VITE_INVENTREE_AUTH_SCHEME` for the auth scheme, defaulting to `Token`
-- `VITE_INVENTREE_UPDATE_METHOD` for the write method, defaulting to `PATCH`
+Requer Android SDK / Gradle configurados.
 
-The `{tag}` placeholder is replaced with the scanned tag id. The app sends the container name in the request body as `{ "name": "..." }`.
+```bash
+# Compila a app web, sincroniza o Capacitor e gera o APK debug
+npm run apk
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Ou compila e instala diretamente num dispositivo ligado por adb
+npm run apk:install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+O APK fica em `android/app/build/outputs/apk/debug/app-debug.apk`.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+> O InvenTree é normalmente servido em HTTP simples na LAN, por isso o
+> `AndroidManifest.xml` permite cleartext (`allowMixedContent`). Usa `http://`
+> apenas em redes de confiança.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Autores
+
+Afonso Saraiva, Daniel Marques, Inês Francisco, Hugo Silva — PE20 2026.
