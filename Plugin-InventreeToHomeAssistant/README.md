@@ -1,16 +1,15 @@
 # InventreeToHomeAssistant Plugin
 
 [InvenTree](https://inventree.org/) plugin that **triggers a Home Assistant
-automation** whenever a stock location (sublocation) is saved. It is used to
+automation** whenever a stock location (sublocation) title changes. It is used to
 update an e-paper tag with the location name and a QR code.
 
-> Part of the [PI-Project](../README.md). Before installing this plugin, Home
-> Assistant and the OpenEPaperLink automation should already be working — see
-> [HA-Webhook](../HA-Webhook/README.md).
+> Before installing this plugin, Home Assistant and the OpenEPaperLink automation
+> should already be working (see [HA-Webhook](../HA-Webhook/README.md)).
 
 ## What it does
 
-When a `StockLocation` is saved, the plugin:
+When a sublocation's title changes, the plugin:
 
 1. Checks whether the location's **description** starts with `tag_id:`.
 2. Extracts the tag's `device_id` from that description
@@ -28,10 +27,10 @@ Locations whose description does **not** start with `tag_id:` are ignored.
 
 1. In InvenTree, make sure plugins are enabled
    (`INVENTREE_PLUGINS_ENABLED=True` or *Settings → Plugins*).
-2. Under *Settings → Plugins → Install Plugin*, install from PyPI:
+2. Under *Settings → Plugins → Install Plugin*, install from the Git repository:
 
    ```
-   inventree-inventreetohomeassistant
+   git+https://github.com/Atfas/InventreeToHomeAssistant
    ```
 
 3. Enable the plugin in the plugin list.
@@ -39,7 +38,7 @@ Locations whose description does **not** start with `tag_id:` are ignored.
 ### Via command line
 
 ```bash
-pip install inventree-inventreetohomeassistant
+pip install git+https://github.com/Atfas/InventreeToHomeAssistant
 ```
 
 Restart the InvenTree server and enable the plugin in the settings.
@@ -47,7 +46,8 @@ Restart the InvenTree server and enable the plugin in the settings.
 ### From source (development)
 
 ```bash
-cd Plugin-InventreeToHomeAssistant
+git clone https://github.com/Atfas/InventreeToHomeAssistant
+cd InventreeToHomeAssistant
 pip install -e .
 ```
 
