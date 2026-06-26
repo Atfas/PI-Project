@@ -1,50 +1,49 @@
-# HA-Webhook — Automação Home Assistant
+# HA-Webhook — Home Assistant Automation
 
-Automação do [Home Assistant](https://www.home-assistant.io/) que desenha numa
-etiqueta de e-paper (via [OpenEPaperLink](https://openepaperlink.de/)) o **logo**,
-o **nome da gaveta** e um **QR code**. É esta a automação disparada pelo
-[plugin do InvenTree](../Plugin-InventreeToHomeAssistant/README.md).
+[Home Assistant](https://www.home-assistant.io/) automation that draws a **logo**,
+the **drawer name** and a **QR code** onto an e-paper (ESL) tag via
+[OpenEPaperLink](https://openepaperlink.de/). This is the automation triggered by
+the [InvenTree plugin](../Plugin-InventreeToHomeAssistant/README.md).
 
-> Faz parte do [PI-Project](../README.md). Pré-requisito: ter o OpenEPaperLink a
-> correr num ESP32 e a integração OpenEPaperLink instalada no Home Assistant
-> (ver [README global](../README.md#1-openepaperlink-no-esp32)).
+> Part of the [PI-Project](../README.md). Prerequisite: have OpenEPaperLink
+> running on an ESP32 and the OpenEPaperLink integration installed in Home
+> Assistant (see the [main README](../README.md)).
 
-## Ficheiros
+## Files
 
-| Ficheiro | Descrição |
+| File | Description |
 |---|---|
-| `webhook_final.yaml` | Automação final: logo + título + QR code na etiqueta |
-| `automation_trigger_content_example.yaml` | Exemplo mínimo (só texto) para testes |
-| `call_trigger.bash` | Exemplos de `curl` para disparar a automação manualmente |
-| `send_full_request.bash` | Exemplo de pedido completo à API |
+| `webhook_final.yaml` | Final automation: logo + title + QR code on the tag |
+| `automation_trigger_content_example.yaml` | Minimal example (text only) for testing |
+| `call_trigger.bash` | `curl` examples to trigger the automation manually |
+| `send_full_request.bash` | Example of a full API request |
 
-## Configuração no Home Assistant
+## Home Assistant setup
 
-1. Confirma que a integração **OpenEPaperLink** está instalada e que as etiquetas
-   aparecem como *devices*. Anota o `device_id` de cada etiqueta.
-2. Cria uma nova automação em *Settings → Automations & Scenes → Create
-   Automation → Edit in YAML* e cola o conteúdo de
+1. Make sure the **OpenEPaperLink** integration is installed and that the tags
+   appear as *devices*. Note down the `device_id` of each tag.
+2. Create a new automation in *Settings → Automations & Scenes → Create
+   Automation → Edit in YAML* and paste the contents of
    [`webhook_final.yaml`](webhook_final.yaml).
-3. Garante que o `alias`/entity da automação corresponde ao configurado no
-   plugin (por omissão `automation.inventree_gaveta_update`).
-4. Cria um **Long-Lived Access Token** em *Perfil → Tokens de acesso de longa
-   duração* — usado pelo plugin e pelos scripts de teste.
+3. Make sure the automation's `alias`/entity matches the one configured in the
+   plugin (default `automation.inventree_gaveta_update`).
+4. Create a **Long-Lived Access Token** under *Profile → Long-Lived Access
+   Tokens* — used by the plugin and by the test scripts.
 
-### Variáveis recebidas pela automação
+### Variables received by the automation
 
-A automação espera estas variáveis (enviadas pelo plugin):
+The automation expects these variables (sent by the plugin):
 
-| Variável | Descrição |
+| Variable | Description |
 |---|---|
-| `device_id` | Id da etiqueta de e-paper no Home Assistant |
-| `drawer_title` | Texto a desenhar (nome da localização) |
-| `qr_text` | Conteúdo do QR code (id da localização no InvenTree) |
+| `device_id` | Id of the e-paper tag in Home Assistant |
+| `drawer_title` | Text to draw (location name) |
+| `qr_text` | QR code contents (location id in InvenTree) |
 
-## Testar manualmente
+## Testing manually
 
-Os scripts em [`call_trigger.bash`](call_trigger.bash) mostram como disparar a
-automação com `curl`. Substitui `YOUR_HA_LONG_LIVED_TOKEN` pelo teu token e o
-`device_id` por uma etiqueta real:
+You can trigger the automation with `curl`. Replace `YOUR_HA_LONG_LIVED_TOKEN`
+with your token and the `device_id` with a real tag:
 
 ```bash
 curl -s -X POST http://homeassistant.local:8123/api/services/automation/trigger \
@@ -54,15 +53,15 @@ curl -s -X POST http://homeassistant.local:8123/api/services/automation/trigger 
     "entity_id": "automation.inventree_gaveta_update",
     "variables": {
       "device_id": "802b7203943c9f35000b7dfa677305b9",
-      "drawer_title": "Resistências",
+      "drawer_title": "Resistors",
       "qr_text": "1"
     }
   }'
 ```
 
-> ⚠️ **Nunca faças commit do teu token real.** Os exemplos usam o placeholder
-> `YOUR_HA_LONG_LIVED_TOKEN` propositadamente.
+> ⚠️ **Never commit your real token.** The examples use the placeholder
+> `YOUR_HA_LONG_LIVED_TOKEN` on purpose.
 
-## Autores
+## Authors
 
 Afonso Saraiva, Daniel Marques, Inês Francisco, Hugo Silva — PE20 2026.
