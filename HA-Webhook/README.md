@@ -5,23 +5,16 @@ the **drawer name** and a **QR code** onto an e-paper (ESL) tag via
 [OpenEPaperLink](https://openepaperlink.de/). This is the automation triggered by
 the [InvenTree plugin](../Plugin-InventreeToHomeAssistant/README.md).
 
-> Part of the [PI-Project](../README.md). Prerequisite: have OpenEPaperLink
-> running on an ESP32 and the OpenEPaperLink integration installed in Home
+> Prerequisite: have OpenEPaperLink running on an ESP32 and the OpenEPaperLink integration installed in Home
 > Assistant (see the [main README](../README.md)).
 
-## Files
-
-| File | Description |
-|---|---|
-| `webhook_final.yaml` | Final automation: logo + title + QR code on the tag |
-| `automation_trigger_content_example.yaml` | Minimal example (text only) for testing |
-| `call_trigger.bash` | `curl` examples to trigger the automation manually |
-| `send_full_request.bash` | Example of a full API request |
 
 ## Home Assistant setup
 
 1. Make sure the **OpenEPaperLink** integration is installed and that the tags
-   appear as *devices*. Note down the `device_id` of each tag.
+   appear as *devices*. Note down the `device_id` of each tag — you can find it
+   by opening the connected devices in the OpenEPaperLink integration and reading
+   the tag id from the URL.
 2. Create a new automation in *Settings → Automations & Scenes → Create
    Automation → Edit in YAML* and paste the contents of
    [`webhook_final.yaml`](webhook_final.yaml).
@@ -58,10 +51,3 @@ curl -s -X POST http://homeassistant.local:8123/api/services/automation/trigger 
     }
   }'
 ```
-
-> ⚠️ **Never commit your real token.** The examples use the placeholder
-> `YOUR_HA_LONG_LIVED_TOKEN` on purpose.
-
-## Authors
-
-Afonso Saraiva, Daniel Marques, Inês Francisco, Hugo Silva — PE20 2026.
