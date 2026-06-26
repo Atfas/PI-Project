@@ -27,29 +27,13 @@ Locations whose description does **not** start with `tag_id:` are ignored.
 
 1. In InvenTree, make sure plugins are enabled
    (`INVENTREE_PLUGINS_ENABLED=True` or *Settings → Plugins*).
-2. Under *Settings → Plugins → Install Plugin*, install from the Git repository:
+2. Under *Settings → Plugins → Install Plugin*, fill in the dialog:
 
-   ```
-   git+https://github.com/Atfas/InventreeToHomeAssistant
-   ```
+   - **Package Name:** `InventreeToHomeAssistant`
+   - **Source URL:** `git+https://github.com/Atfas/InventreeToHomeAssistant`
 
 3. Enable the plugin in the plugin list.
 
-### Via command line
-
-```bash
-pip install git+https://github.com/Atfas/InventreeToHomeAssistant
-```
-
-Restart the InvenTree server and enable the plugin in the settings.
-
-### From source (development)
-
-```bash
-git clone https://github.com/Atfas/InventreeToHomeAssistant
-cd InventreeToHomeAssistant
-pip install -e .
-```
 
 ## Configuration
 
