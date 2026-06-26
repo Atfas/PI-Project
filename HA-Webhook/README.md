@@ -17,7 +17,7 @@ the [InvenTree plugin](../Plugin-InventreeToHomeAssistant/README.md).
    the tag id from the URL.
 2. Create a new automation in *Settings → Automations & Scenes → Create
    Automation → Edit in YAML* and paste the contents of
-   [`webhook_final.yaml`](webhook_final.yaml).
+   [`webhook.yaml`](webhook.yaml).
 3. Make sure the automation's `alias`/entity matches the one configured in the
    plugin (default `automation.inventree_gaveta_update`).
 4. Create a **Long-Lived Access Token** under *Profile → Long-Lived Access
