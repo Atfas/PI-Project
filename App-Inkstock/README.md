@@ -1,70 +1,71 @@
-# App InkStock (Android)
+# InkStock App (Android)
 
-App Android (React + TypeScript + Vite + [Capacitor](https://capacitorjs.com/))
-que **lê o QR code de uma gaveta**, resolve a localização correspondente no
-[InvenTree](https://inventree.org/) e permite **consultar e editar o stock**
-dessa localização diretamente no telemóvel.
+Android app (React + TypeScript + Vite + [Capacitor](https://capacitorjs.com/))
+that **scans a drawer's QR code**, resolves the matching location in
+[InvenTree](https://inventree.org/) and lets you **view and edit the stock** of
+that location directly on your phone.
 
-> Faz parte do [PI-Project](../README.md). O QR code lido é o gerado nas etiquetas
-> de e-paper pela [automação do Home Assistant](../HA-Webhook/README.md).
+> Part of the [PI-Project](../README.md). The QR code being scanned is the one
+> generated on the e-paper tags by the
+> [Home Assistant automation](../HA-Webhook/README.md).
 
-## Funcionalidades
+## Features
 
-- Leitura de QR code com a câmara (via `html5-qrcode`).
-- Resolução da localização no InvenTree a partir do conteúdo do QR.
-- Edição de stock, mover itens, breadcrumb de localização e vistos recentemente.
-- Pesquisa de peças com sugestões em tempo real.
+- QR code scanning with the camera (via `html5-qrcode`).
+- Resolves the InvenTree location from the QR contents.
+- Stock editing, moving items, location breadcrumb and recently viewed.
+- Part search with real-time suggestions.
 
-### Payloads de QR suportados
+### Supported QR payloads
 
-- Um id de tag/localização direto, por exemplo `TAG-001` ou `1`.
-- Um URL com o tag na query string, por exemplo
+- A direct tag/location id, for example `TAG-001` or `1`.
+- A URL with the tag in the query string, for example
   `https://app.example.com/?tag=TAG-001`.
 
-## Desenvolvimento
+## Development
 
-Requer Node.js v20 ou v22 e npm.
+Requires Node.js v20 or v22 and npm.
 
 ```bash
 npm install --include=dev
 npm run dev
 ```
 
-## Configuração (variáveis de ambiente)
+## Configuration (environment variables)
 
-Cria um ficheiro `.env` (dev) ou `.env.production` (build do APK) com:
+Create a `.env` file (dev) or `.env.production` (APK build) with:
 
-| Variável | Descrição | Exemplo |
+| Variable | Description | Example |
 |---|---|---|
-| `VITE_INVENTREE_API_BASE_URL` | Host do InvenTree (sem barra final) | `http://192.168.1.93` |
-| `VITE_INVENTREE_CONTAINER_ENDPOINT_TEMPLATE` | Endpoint da localização | `/api/stock/location/{id}/` |
-| `VITE_INVENTREE_API_TOKEN` | Token da API do InvenTree | `inv-...` |
-| `VITE_INVENTREE_AUTH_SCHEME` | Esquema de autenticação | `Token` |
-| `VITE_INVENTREE_UPDATE_METHOD` | Método de escrita | `PATCH` |
+| `VITE_INVENTREE_API_BASE_URL` | InvenTree host (no trailing slash) | `http://192.168.1.93` |
+| `VITE_INVENTREE_CONTAINER_ENDPOINT_TEMPLATE` | Location endpoint | `/api/stock/location/{id}/` |
+| `VITE_INVENTREE_API_TOKEN` | InvenTree API token | `inv-...` |
+| `VITE_INVENTREE_AUTH_SCHEME` | Authentication scheme | `Token` |
+| `VITE_INVENTREE_UPDATE_METHOD` | Write method | `PATCH` |
 
-> ⚠️ Estes ficheiros **não** são versionados (estão no `.gitignore`) porque
-> contêm o token da API. No APK, o `.env.production` é "cozido" no build, por
-> isso o `VITE_INVENTREE_API_BASE_URL` tem de ser um endereço alcançável pelo
-> telemóvel (ex: o IP do Pi na LAN).
+> ⚠️ These files are **not** versioned (they are in `.gitignore`) because they
+> contain the API token. In the APK, `.env.production` is baked into the build,
+> so `VITE_INVENTREE_API_BASE_URL` must be an address reachable from the phone
+> (e.g. the Pi's LAN IP).
 
-## Compilar o APK Android
+## Building the Android APK
 
-Requer Android SDK / Gradle configurados.
+Requires the Android SDK / Gradle to be set up.
 
 ```bash
-# Compila a app web, sincroniza o Capacitor e gera o APK debug
+# Build the web app, sync Capacitor and generate the debug APK
 npm run apk
 
-# Ou compila e instala diretamente num dispositivo ligado por adb
+# Or build and install directly on a device connected via adb
 npm run apk:install
 ```
 
-O APK fica em `android/app/build/outputs/apk/debug/app-debug.apk`.
+The APK is generated at `android/app/build/outputs/apk/debug/app-debug.apk`.
 
-> O InvenTree é normalmente servido em HTTP simples na LAN, por isso o
-> `AndroidManifest.xml` permite cleartext (`allowMixedContent`). Usa `http://`
-> apenas em redes de confiança.
+> InvenTree is usually served over plain HTTP on the LAN, so the
+> `AndroidManifest.xml` allows cleartext (`allowMixedContent`). Use `http://`
+> only on trusted networks.
 
-## Autores
+## Authors
 
 Afonso Saraiva, Daniel Marques, Inês Francisco, Hugo Silva — PE20 2026.
