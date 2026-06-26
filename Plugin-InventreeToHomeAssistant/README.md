@@ -45,9 +45,8 @@ After enabling the plugin, open its settings in InvenTree and fill in:
 | `HA_TOKEN` | Home Assistant Long-Lived Access Token | `eyJhbG...` |
 | `HA_AUTOMATION_ENTITY` | Automation entity to trigger | `automation.inventree_gaveta_update` |
 
-> The token is created in Home Assistant under *Profile → Long-Lived Access
-> Tokens*. The automation is the one created in
-> [HA-Webhook](../HA-Webhook/README.md).
+> The token is created in Home Assistant under *Profile → Long-Lived Access Tokens*. 
+> The automation is the one created in [HA-Webhook](../HA-Webhook/README.md).
 
 ## Usage
 
@@ -64,7 +63,3 @@ After enabling the plugin, open its settings in InvenTree and fill in:
 
 The InvenTree server logs show `[HA Plugin] Triggered automation ...` on success,
 or the error message on failure.
-
-## Authors
-
-Afonso Saraiva, Daniel Marques, Inês Francisco, Hugo Silva — PE20 2026.

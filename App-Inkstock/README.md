@@ -48,9 +48,7 @@ Create a `.env` file (dev) or `.env.production` (APK build) with:
 
 ### Getting the InvenTree API token
 
-`VITE_INVENTREE_API_TOKEN` is an **InvenTree API token** tied to a user account.
-The app sends it as `Authorization: Token <token>` on every request, so that
-user's permissions decide what the app can read and edit.
+`VITE_INVENTREE_API_TOKEN` is an **InvenTree API token** tied to a user account, the app sends it as `Authorization: Token <token>` on every request, so that user's permissions decide what the app can read and edit.
 
 You can generate it in two ways:
 
@@ -71,33 +69,7 @@ You can generate it in two ways:
 
 ## Building the Android APK
 
-### Prerequisites: Android SDK
-
-You need the Android SDK and a Java JDK (17+) installed. The easiest way is
-[Android Studio](https://developer.android.com/studio), which bundles the SDK,
-the build tools and `adb`:
-
-1. Install **Android Studio** and open it once so it downloads the default SDK.
-2. In *Settings → Languages & Frameworks → Android SDK*, make sure an **SDK
-   Platform** and the **Android SDK Build-Tools** + **Platform-Tools** are
-   installed.
-3. Point the build to the SDK by setting `ANDROID_HOME` (and adding the tools to
-   your `PATH`). On macOS, add this to `~/.zshrc`:
-
-   ```bash
-   export ANDROID_HOME="$HOME/Library/Android/sdk"
-   export PATH="$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/cmdline-tools/latest/bin"
-   ```
-
-   Then reload with `source ~/.zshrc` and verify with `adb --version`.
-
-> Alternatively, install just the SDK without Android Studio via the
-> [command-line tools](https://developer.android.com/studio#command-line-tools-only),
-> or on macOS with `brew install --cask android-commandlinetools`. Gradle itself
-> does not need a separate install — the project ships with the Gradle wrapper
-> (`./gradlew`).
-
-### Build
+Requires the Android SDK / Gradle to be set up.
 
 ```bash
 # Build the web app, sync Capacitor and generate the debug APK

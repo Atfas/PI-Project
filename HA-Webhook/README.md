@@ -1,4 +1,4 @@
-# HA-Webhook — Home Assistant Automation
+# HA-Webhook: Home Assistant Automation
 
 [Home Assistant](https://www.home-assistant.io/) automation that draws a **logo**,
 the **drawer name** and a **QR code** onto an e-paper (ESL) tag via
@@ -21,7 +21,7 @@ the [InvenTree plugin](../Plugin-InventreeToHomeAssistant/README.md).
 3. Make sure the automation's `alias`/entity matches the one configured in the
    plugin (default `automation.inventree_gaveta_update`).
 4. Create a **Long-Lived Access Token** under *Profile → Long-Lived Access
-   Tokens* — used by the plugin and by the test scripts.
+   Tokens* **used by the plugin and by the test scripts.**
 
 ### Variables received by the automation
 
