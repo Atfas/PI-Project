@@ -1,0 +1,9 @@
+#Build files
+*.aux
+*.bbl
+*.blg
+*.fls
+*.fdb_latexmk
+*.log
+*.synctex.gz
+*.toc
