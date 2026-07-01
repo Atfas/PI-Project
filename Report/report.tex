@@ -109,9 +109,35 @@ Descrever as atividades realizadas ao londo do tempo (incluindo eventos relevant
 
 \section{Desenvolvimento da solução}
 
+O desenvolvimento da solução focou-se em responder aos requisitos identificados ao longo do projeto. A solução integra um \textit{plugin} para o Inventree, 
+uma aplicação móvel e um sistema de etiquetas \textit{e-ink}, 
+com o objetivo de garantir que a informação física das gavetas se mantém sempre sincronizada com os registos digitais de inventário.
+
 \subsection{Requisitos}
 
-Identificar os requisitos funcionais e não funcionais relevantes e respectivas fontes, bem como restrições ao projeto.
+Através das reuniões e discussões com a equipa da Fraunhofer Portugal, foram recolhidos contributos fundamentais que permitiram definir o seguinte conjunto de requisitos e restrições do projeto.
+
+\subsubsection*{Requisitos Funcionais}
+\begin{itemize}
+    \item \textbf{Atualização Automática de Etiquetas:} O sistema deve atualizar automaticamente a etiqueta \textit{e-ink} quando o nome de uma localização é alterado no Inventree, sem intervenção manual.
+    \item \textbf{Conteúdo da Etiqueta:} A etiqueta \textit{e-ink} deve apresentar o nome do projeto associado à gaveta e um código QR que remete para a localização correspondente no Inventree.
+    \item \textbf{Consulta de Stock:} A aplicação móvel deve permitir ao utilizador consultar os níveis de stock atuais de uma localização através da leitura de um código QR.
+    \item \textbf{Gestão de Inventário:} A aplicação móvel deve permitir ao utilizador atualizar o nome de localizações e os níveis de stock diretamente a partir do seu dispositivo.
+\end{itemize}
+
+\subsubsection*{Requisitos Não Funcionais}
+\begin{itemize}
+    \item \textbf{Usabilidade:} A aplicação móvel deve proporcionar uma interação simples e rápida, minimizando o número de passos necessários para consultar ou atualizar informação de inventário.
+    \item \textbf{Escalabilidade:} O sistema deve suportar a adição de novas etiquetas \textit{e-ink} sem necessidade de alterações arquiteturais.
+    \item \textbf{Fiabilidade:} O sistema deve garantir a entrega de atualizações às etiquetas com uma taxa de sucesso elevada em condições normais de rede.
+	\item \textbf{Eficiência Energética:} As etiquetas \textit{e-ink} devem operar com baixo consumo energético, prolongando a vida útil da bateria.
+\end{itemize}
+
+\subsubsection*{Restrições}
+\begin{itemize}
+    \item \textbf{Atraso de Atualização:} Devido ao intervalo de \textit{check-in} das etiquetas \textit{e-ink}, o atraso máximo entre uma alteração no Inventree e a correspondente atualização visual da etiqueta é de aproximadamente 40 segundos.
+	\item \textbf{Compatibilidade de Hardware:} As etiquetas \textit{e-ink} devem ser compatíveis com o protocolo de comunicação utilizado pelo sistema, BLE, garantindo a correta receção de atualizações.
+\end{itemize}
 
 \subsection{Arquitetura e tecnologias}
 
