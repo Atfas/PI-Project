@@ -1,8 +1,8 @@
 \documentclass[10pt]{article}
 \usepackage[portuguese]{babel} % para indice em português
 \usepackage{url}
-\usepackage{graphicx}
 \usepackage{float}
+\usepackage{graphicx}
 \graphicspath{ {./figures/} }
 
 
@@ -59,48 +59,100 @@
  
 \section{Introdução}
 
-O presente relatório descreve o trabalho desenvolvido no âmbito do projeto integrador, cujo objetivo consiste no desenvolvimento de um sistema para gestão e atualização de etiquetas eletrônicas e-ink integradas com um sistema de inventário digital.
+
 	
 	\subsection{Enquadramento}
-
-    O projeto foi desenvolvido no contexto de um ambiente de investigação e desenvolvimento tecnológico, semelhante ao existente em organizações de investigação aplicada, como a Fraunhofer Portugal.
 	
-	Neste tipo de organizações, é comum existirem diversos espaços de armazenamento, como gavetas, armários ou caixas, utilizados para guardar componentes, materiais de laboratório, protótipos e equipamentos relacionados com diferentes projetos.
-	
-	A gestão destes materiais é frequentemente feita através de etiquetas em papel, o que origina inconsistências entre o estado real do inventário e os registos digitais existentes, dificultando a identificação rápida dos recursos disponíveis.
+	O presente relatório descreve o trabalho desenvolvido no âmbito do Projeto Integrador, cujo objetivo consiste no desenvolvimento de um sistema inteligente para gestão e atualização de etiquetas eletrónicas e-ink integradas com um sistema de inventário digital. Este relatório apresenta o contexto organizacional em que o projeto foi realizado, o problema identificado e as respetivas motivações que impulsionaram a solução proposta.
+    
+    O projeto foi desenvolvido, implementado e testado no contexto real de um laboratório de investigação e desenvolvimento tecnológico na Fraunhofer Portugal, apresentado na Figura 1. Este ambiente caracteriza-se pela existência de múltiplos espaços de armazenamento, tais como gavetas e armários, dedicados à organização de materiais, componentes eletrónicos e equipamentos associados a diversos projetos. Numa instituição de investigação aplicada, a gestão rigorosa destes materiais é fulcral para garantir a eficiência operacional, a acessibilidade e a rapidez na identificação dos recursos disponíveis e, por conseguinte, no avanço dos trabalhos de I\&D.
 
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=0.6\textwidth]{FraunhoferAICOS}
-		\caption{Fraunhofer Portugal AICOS}
+    Tradicionalmente, a gestão deste tipo de inventário assenta em etiquetas estáticas (em papel) e sistemas de registo desconectados da realidade física. Como consequência direta, a informação visual desatualiza-se rapidamente face às movimentações de stock, gerando inconsistências entre os registos digitais e o inventário real. Este cenário traduz-se em dificuldades no rastreio e manutenção de recursos, perda de tempo na procura e localização de componentes e potencial duplicação de custos por falta de visibilidade, dificultando a manutenção organizada do espaço de trabalho.
+
+    Para mitigar estas limitações, surge a motivação de integrar etiquetas com tecnologia \textit{e-ink} (papel eletrónico), reconhecidas pelo seu consumo energético quase nulo e excelente legibilidade, a um ecossistema centralizado. Ao associar estas etiquetas à base de dados de gestão de inventário e ao criar uma aplicação móvel dedicada, o sistema passa a sincronizar de forma automática o inventário físico e o digital, otimizando de forma robusta a organização e a acessibilidade no laboratório.
+
+    \begin{figure}[H]
+	\centering
+	\includegraphics[height=0.3\textwidth]{FraunhoferAICOS}
+	\caption{Fraunhofer Portugal AICOS}
 	\end{figure}
+
+
 	
 	\subsection{Objetivos e resultados esperados}
-	
-	Reconhecendo os desafios da gestão de inventário, o projeto visou desenvolver um sistema que permitisse manter as etiquetas físicas das gavetas automaticamente sincronizadas com a informação da base de dados do inventário.
 
-	Os objetivos principais foram integrar etiquetas e-ink com o Inventree, de forma a que qualquer alteração no nome de uma localização se reflita automaticamente na etiqueta física correspondente. Além disso, desenvolver uma aplicação móvel que permitisse ao utilizador consultar o stock e gerir o inventário através da leitura de um código QR.
+    Reconhecendo as fragilidades identificadas na gestão tradicional de inventários em ambientes laboratoriais, este projeto propôs a conceção e implementação de uma solução tecnológica integrada. O propósito central consistiu em automatizar o fluxo de informação entre os registos digitais e a sua representação física, garantindo a integridade e a atualização contínua dos dados.
+
+    \subsubsection{Objetivos Gerais e Específicos}
+
+    O objetivo primordial do projeto centrou-se na integração das etiquetas \textit{e-ink}, alocadas aos espaços de armazenamento (como gavetas e armários), com a base de dados central de inventário, \textit{InvenTree}.
+
+	Para alcançar este propósito, definiram-se os seguintes objetivos específicos:
+    
+    \begin{itemize}
+    \item \textbf{Integração de Hardware e Software (\textit{E-Ink} \& \textit{InvenTree}):} Estabelecer uma comunicação bidirecional e automatizada através de um \textit{plugin} dedicado no \textit{InvenTree}, garantindo que qualquer alteração nos dados de uma localização (alteração do nome ou do tipo de componentes armazenados) seja processada e transmitida em tempo real para a respetiva etiqueta física.
+    \item \textbf{Desenvolvimento de Aplicação Móvel (\textit{Inkstock}):} Conceber uma interface móvel intuitiva que conceda aos utilizadores a capacidade de consultar o estado do \textit{stock}, registar entradas ou saídas de material e gerir localizações diretamente.
+    \item \textbf{Acesso Facilitado via Código QR:} Implementar um mecanismo de leitura de códigos QR gerados dinamicamente no ecrã das etiquetas \textit{e-ink}, permitindo o emparelhamento imediato e o acesso instantâneo à ficha digital do item ou da localização através da aplicação móvel.
+    \end{itemize}
+
+    \subsubsection{Resultados Esperados}
+    Como resultado direto da implementação deste ecossistema, previu-se a eliminação completa dos processos de atualização manual e a consequente erradicação do erro humano associado à rotulagem estática. Esperava-se alcançar um ambiente de trabalho perfeitamente sincronizado, onde a consistência absoluta entre o inventário físico e os registos digitais reduza de forma drástica os tempos de busca de componentes e otimize a gestão de recursos no laboratório da Fraunhofer Portugal. Adicionalmente, por se basear numa arquitetura assente em \textit{software} livre e protocolos abertos, o sistema deverá apresentar-se como uma solução escalável, facilmente replicável noutras divisões ou laboratórios da instituição.
 	
-	Desta forma, o sistema deverá eliminar a necessidade de atualização manual de etiquetas, garantindo que a informação física está sempre consistente com os registos digitais.
     
 	\subsection{Estrutura do relatório}
-	
-	Este relatório está estruturado em quatro seções. A Seção 1 apresenta uma introdução ao projeto, incluindo o contexto, os objetivos e os resultados esperados. 
-	A Seção 2 descreve a metodologia e as principais atividades realizadas durante o projeto, abrangendo a metodologia utilizada, as partes interessadas envolvidas e as atividades desenvolvidas. 
-	A Seção 3 apresenta o desenvolvimento da solução, incluindo requisitos, arquitetura e tecnologias utilizadas, bem como a validação da solução desenvolvida. 
-	Por fim, a Seção 4 conclui o relatório com um resumo dos resultados alcançados, das lições aprendidas e de sugestões para trabalhos futuros.
+
+    Para facilitar a leitura e a compreensão do trabalho desenvolvido, este relatório encontra-se estruturado em quatro capítulos principais, organizados da seguinte forma:
+    \begin{itemize}
+    \item \textbf{Capítulo 1 -- Introdução:} Apresenta o enquadramento do projeto no laboratório da Fraunhofer Portugal, contextualiza o problema da gestão manual de inventário e define os objetivos gerais e específicos, bem como os resultados esperados.
+    \item \textbf{Capítulo 2 -- Metodologia Utilizada e Principais Atividades Desenvolvidas:} Detalha o processo de desenvolvimento iterativo e as ferramentas colaborativas utilizadas pela equipa, além de delinear as responsabilidades de cada elemento e os intervenientes externos e as atividades desenvolvidas ao longo do projeto.
+    \item \textbf{Capítulo 3 -- Desenvolvimento da Solução:} Aborda a arquitetura técnica e a implementação prática do ecossistema, descrevendo a integração entre a base de dados \textit{InvenTree}, a automação via \textit{Home Assistant}, o \textit{firmware} dos microcontroladores ESP32 e a aplicação móvel \textit{Inkstock}.
+    \item \textbf{Capítulo 4 -- Conclusões:} Sintetiza os resultados alcançados com o protótipo funcional, valida o cumprimento dos objetivos iniciais e propõe caminhos de melhoria contínua e trabalho futuro para o sistema.
+\end{itemize}
 
 
 \section{Metodologia utilizada e principais atividades desenvolvidas}
 
+A concretização do ecossistema inteligente de gestão de inventário exigiu uma estruturação rigorosa dos processos de trabalho, dos recursos tecnológicos mobilizados e da articulação entre todos os intervenientes. Esta organização prévia foi um fator determinante para garantir a robustez técnica das frentes de hardware e software, bem como o cumprimento dos prazos estabelecidos.
+
 \subsection{Metodologia utilizada}
 
-    Descrever a metodologia\cite{despa2014comparative} seguida (exemplo: desenvolvimento iterativo com sprints quinzenais e reuniões semanais de acompanhamento) e recursos utilizados (exemplo: GitHub \cite{github}, etc.).
-	
+Para a concretização dos objetivos propostos, o processo e desenvolvimento seguiu uma \textbf{metodologia ágil e iterativa}. Esta abordagem revelou-se ideal devido à necessidade de integrar, de forma incremental, componentes de hardware (\textit{firmware} e microcontroladores) e de software (\textit{plugins} de base de dados e aplicações móveis).
+
+\subsubsection*{Ciclos de Desenvolvimento e Sprints}
+O ciclo de vida do projeto foi segmentado em \textit{sprints} quinzenais. No início de cada ciclo, foi realizado um planeamento das metas de curto prazo e metas intermédias (como a pesquisa relativa às diversas tecnologias de etiquetas \textit{e-ink}, a configuração inicial da base de dados, ou a prototipagem de ecrãs da aplicação).
+
+\subsubsection*{Reuniões Semanais de Acompanhamento}
+Com o intuito de garantir o alinhamento contínuo e a validação técnica das soluções propostas, fomos semanalmente à Fraunhofer Portugal, de forma a assegurar um acompanhamento próximo com a equipa de orientação e supervisores da Fraunhofer Portugal. Estes momentos foram fulcrais para ajustar requisitos em tempo real, debater as restrições energéticas e de latência das etiquetas e recolher pareceres de quem experiencia o dia a dia do laboratório.
+Para além disso, tivemos 3 reuniões com o tutor do projeto, de forma a discutirmos o progresso e possíveis atrasos na calendarização, garantindo que o trabalho era desenvolvido de acordo com o pretendido e dentro dos respetivos \textit{timings}.
+
+\subsubsection*{Recursos Tecnológicos Utilizados}
+A infraestrutura técnica de colaboração e desenvolvimento baseou-se em:
+\begin{itemize}
+    \item \textbf{Git e GitHub:} Utilizados como o sistema central de controlo de versões distribuído. O repositório no GitHub permitiu a divisão do trabalho através de ramificações (\textit{branches}) dedicadas a cada funcionalidade e componente, assegurando a revisão de código, rastreabilidade e integração contínua das frentes de hardware e software.
+\end{itemize}
 	
 \subsection{Intervenientes, papéis e responsabilidades}
 
-Identificar a equipa de projeto, stakeholders e outros invernientes com os quais existiu interação; no caso de trabalho em grupo, clarificar os papéis e responsabilidades de cada elemento do grupo.
+A execução com sucesso deste ecossistema inteligente resultou de uma definição clara e inequívoca dos papéis desempenhados por cada interveniente, assegurando uma governação de projeto fluida.
+
+\subsubsection*{Identificação dos Intervenientes e Stakeholders}
+
+O ecossistema do projeto envolveu três núcleos principais de partes interessadas:
+\begin{itemize}
+    \item \textbf{Equipa de Desenvolvimento (Estudantes LEIC):} Constituída pelos alunos Afonso Saraiva, Daniel Marques, Hugo Silva e Inês Francisco, responsáveis pela conceção total e implementação da solução.
+    \item \textbf{Entidade de Acolhimento e Stakeholder Principal:} A \textbf{Fraunhofer Portugal}, representada pelos seus engenheiros e orientadores de laboratório. A instituição atuou como o cliente final (\textit{Product Owner}), definindo o ambiente real do problema, cedendo as etiquetas eletrónicas e os microcontroladores de teste, e validando os resultados práticos face às necessidades operacionais.
+    \item \textbf{Contexto Académico:} Faculdade de Engenharia e Faculdade de Ciências da Universidade do Porto (FEUP/FCUP), no âmbito da unidade curricular de Projeto Integrador do ano letivo 2025/26, providenciando o enquadramento avaliativo e a mentoria metodológica de alto nível.
+\end{itemize}
+
+\subsubsection*{Papéis e Responsabilidades da Equipa}
+A fim de otimizar o progresso e mitigar riscos de dependência mútua, o trabalho foi dividido por componentes, ainda que todos os elementos tenham colaborado ativamente nas fases críticas de integração e testes em laboratório:
+\begin{itemize}
+    \item \textbf{Afonso Saraiva -- Gestão da Base de Dados e Integração Core (\textit{InvenTree}):} Responsável pelo levantamento do modelo de dados no \textit{InvenTree}, desenho e codificação do \textit{plugin} em \textit{Python} para a escuta de eventos, e parametrização dos gatilhos síncronos de \textit{webhooks}.
+    \item \textbf{Daniel Marques -- Orquestração de Automação e Redes (\textit{Home Assistant}):} Encarregue da configuração da plataforma intermédia, mapeamento lógico das regras de encaminhamento e gestão da ponte de comunicação através de fluxos estáveis de \textit{WebSockets}.
+    \item \textbf{Hugo Silva -- Firmware e Comunicação (ESP32 e BLE):} Focado no desenvolvimento e calibração do \textit{firmware} \textit{OpenEPaperLink} nos microcontroladores ESP32, garantindo o emparelhamento, a gestão eficiente da bateria e a transmissão estável via \textit{Bluetooth Low Energy} para as etiquetas eletrónicas.
+    \item \textbf{Inês Francisco -- Interface e Aplicação Móvel (\textit{Inkstock}):} Responsável pela arquitetura e programação da aplicação móvel em \textit{React}, implementando os ecrãs de consulta de stock, edição de localizações e o algoritmo de descodificação da câmara para a leitura de códigos QR.
+\end{itemize}
+
 
 \subsection{Atividades desenvolvidas}
 
@@ -108,113 +160,93 @@ Descrever as atividades realizadas ao londo do tempo (incluindo eventos relevant
 
 
 \section{Desenvolvimento da solução}
-
-O desenvolvimento da solução focou-se em responder aos requisitos identificados ao longo do projeto. A solução integra um \textit{plugin} para o Inventree, 
-uma aplicação móvel e um sistema de etiquetas \textit{e-ink}, 
-com o objetivo de garantir que a informação física das gavetas se mantém sempre sincronizada com os registos digitais de inventário.
+O desenvolvimento da solução focou-se em responder de forma integrada aos requisitos técnicos e operacionais identificados ao longo do projeto. A arquitetura implementada acopla um \textit{plugin} customizado para o \textit{InvenTree}, uma aplicação móvel dedicada (\textit{Inkstock}) e um ecossistema de etiquetas eletrónicas \textit{e-ink}. O propósito central consiste em garantir que a informação visual disposta fisicamente nas gavetas do laboratório se mantenha em estrita sincronização com os registos digitais do inventário, mitigando falhas humanas e atrasos de atualização.
 
 \subsection{Requisitos}
 
-Através das reuniões e discussões com a equipa da Fraunhofer Portugal, foram recolhidos contributos fundamentais que permitiram definir o seguinte conjunto de requisitos e restrições do projeto.
+A definição dos requisitos funcionais, não funcionais e das restrições do projeto resultou de um processo colaborativo de levantamento de necessidades, assente em reuniões periódicas e discussões técnicas com a equipa da Fraunhofer Portugal.
 
 \subsubsection*{Requisitos Funcionais}
+
 \begin{itemize}
-    \item \textbf{Atualização Automática de Etiquetas:} O sistema deve atualizar automaticamente a etiqueta \textit{e-ink} quando o nome de uma localização é alterado no Inventree, sem intervenção manual.
-    \item \textbf{Conteúdo da Etiqueta:} A etiqueta \textit{e-ink} deve apresentar o nome do projeto associado à gaveta e um código QR que remete para a localização correspondente no Inventree.
-    \item \textbf{Consulta de Stock:} A aplicação móvel deve permitir ao utilizador consultar os níveis de stock atuais de uma localização através da leitura de um código QR.
-    \item \textbf{Gestão de Inventário:} A aplicação móvel deve permitir ao utilizador atualizar o nome de localizações e os níveis de stock diretamente a partir do seu dispositivo.
+    \item \textbf{Atualização Automática de Etiquetas:} O sistema deve detetar e propagar automaticamente qualquer alteração no nome de uma localização no \textit{InvenTree} para a respetiva etiqueta física, sem necessidade de intervenção humana direta.
+    \item \textbf{Conteúdo Dinâmico da Etiqueta:} A etiqueta \textit{e-ink} deve renderizar visualmente o nome do projeto associado à gaveta, acompanhado de um código QR gerado dinamicamente que remeta para o endereço da localização correspondente no \textit{InvenTree}.
+    \item \textbf{Consulta Instantânea de Stock:} A aplicação móvel deve permiter que o utilizador consulte os níveis de \textit{stock} atuais e os componentes contidos numa gaveta através da leitura do código QR presente na etiqueta.
+    \item \textbf{Gestão de Inventário Remota:} A aplicação móvel deve permitir a atualização em tempo real do nome de localizações, adição de itens e ajuste dos níveis de \textit{stock} diretamente a partir do dispositivo móvel do operador.
 \end{itemize}
 
 \subsubsection*{Requisitos Não Funcionais}
 \begin{itemize}
-    \item \textbf{Usabilidade:} A aplicação móvel deve proporcionar uma interação simples e rápida, minimizando o número de passos necessários para consultar ou atualizar informação de inventário.
-    \item \textbf{Escalabilidade:} O sistema deve suportar a adição de novas etiquetas \textit{e-ink} sem necessidade de alterações arquiteturais.
-    \item \textbf{Fiabilidade:} O sistema deve garantir a entrega de atualizações às etiquetas com uma taxa de sucesso elevada em condições normais de rede.
-	\item \textbf{Eficiência Energética:} As etiquetas \textit{e-ink} devem operar com baixo consumo energético, prolongando a vida útil da bateria.
+    \item \textbf{Usabilidade e Fluidez:} A interface da aplicação móvel deve proporcionar uma interação simples, intuitiva e rápida, minimizando o número de passos necessários para executar operações de consulta ou edição de inventário.
+    \item \textbf{Escalabilidade:} A arquitetura do sistema deve suportar a adição de novas etiquetas \textit{e-ink}, sem exigir alterações estruturais no código ou na infraestrutura de rede.
+    \item \textbf{Fiabilidade:} O sistema deve assegurar uma taxa de sucesso elevada na transmissão e receção de pacotes de dados destinados às etiquetas em condições normais de operação laboratorial.
+    \item \textbf{Eficiência Energética:} O consumo energético das etiquetas \textit{e-ink} deve ser estritamente minimizado, maximizando o tempo de vida útil das baterias internas através de estados de suspensão profunda (\textit{sleep}).
 \end{itemize}
 
-\subsubsection*{Restrições}
+\subsubsection*{Restrições do Projeto}
 \begin{itemize}
-    \item \textbf{Atraso de Atualização:} Devido ao intervalo de \textit{check-in} das etiquetas \textit{e-ink}, o atraso máximo entre uma alteração no Inventree e a correspondente atualização visual da etiqueta é de aproximadamente 40 segundos.
-	\item \textbf{Compatibilidade de Hardware:} As etiquetas \textit{e-ink} devem ser compatíveis com o protocolo de comunicação utilizado pelo sistema, BLE, garantindo a correta receção de atualizações.
+    \item \textbf{Latência de Atualização:} Devido ao intervalo de comunicação cíclica (\textit{check-in}) das etiquetas para preservação de energia, existe uma restrição de latência máxima de aproximadamente 40 segundos entre a submissão de uma alteração no \textit{InvenTree} e a sua efetiva renderização visual na etiqueta física.
+    \item \textbf{Compatibilidade de Hardware:} O hardware das etiquetas eletrónicas está estritamente condicionado à compatibilidade nativa com o protocolo de comunicação \textit{Bluetooth Low Energy} (BLE).
 \end{itemize}
 
 \subsection{Arquitetura e tecnologias}
 
-\subsubsection{Arquitetura da solução}
+\subsubsection{Arquitetura da Solução}
 
-A solução desenvolvida segue uma arquitetura distribuída baseada em diferentes serviços que comunicam entre si através de APIs. O objetivo da arquitetura é garantir que qualquer alteração efetuada no sistema de inventário é refletida nas etiquetas sem qualquer intervenção manual. Tem ainda como objetivo permitir que componentes individuais sejam alterados sem a necessidade de recriar todos os outros.
+A solução desenvolvida adota uma arquitetura distribuída e modular baseada em serviços, que comunicam de forma eficiente entre si, através de APIs e protocolos de comunicação leves. O design desta arquitetura visa assegurar o desacoplamento de componentes, permitindo que módulos individuais sejam modificados ou expandidos sem comprometer a estabilidade global do ecossistema.
 
-Os principais componentes da solução são:
+Os principais componentes integrados na solução são:
 
 \begin{itemize}
-    \item \textbf{InvenTree}, sistema central de gestão de inventário;
-    \item \textbf{Plugin para o Inventree}, desenvolvido com o objetivo de detetar alterações nas localizações e desencadear o processo de atualização;
-    \item \textbf{Home Assistant}, utilizado como plataforma intermediária de automação;
-    \item \textbf{OpenEPaperLink}, firmware responsável pela comunicação com as etiquetas eletrónicas;
-    \item \textbf{ESP32 Access Point}, estabelece a comunicação com as etiquetas e-ink, permite facilmente adicionar novas etiquetas sem a necessidade de as integrar no sistema;
-    \item \textbf{Etiquetas e-ink}, responsáveis pela apresentação da informação das gavetas e do código QR para a aplicação;
-    \item \textbf{Aplicação móvel}, comunica diretamente com a API do Inventree para consulta e atualização do inventário.
+    \item \textbf{InvenTree Database:} Base de dados e sistema centralizador de gestão do inventário digital;
+    \item \textbf{Plugin para o InvenTree:} Extensão desenvolvida em \textit{Python} para monitorizar eventos na base de dados e desencadear gatilhos (\textit{triggers}) de atualização;
+    \item \textbf{Home Assistant:} Plataforma intermédia de automação encarregue de gerir as regras de negócio, receber os \textit{webhooks} e gerir as ligações por \textit{websockets};
+    \item \textbf{ESP-32 (OpenEPaperLink Firmware):} Microcontrolador configurado como Ponto de Acesso (AP), responsável por estabelecer a comunicação com as etiquetas e permitir a sua adição de forma simples e fácil;
+    \item \textbf{Etiquetas E-Ink (Tags):} Dispositivos de visualização final que operam via protocolo BLE para exibir as informações e códigos QR das localizações;
+    \item \textbf{Aplicação Móvel (\textit{Inkstock}):} Cliente móvel desenvolvido para interagir diretamente com a API do \textit{InvenTree}, efetuando leituras e escritas no inventário.
 \end{itemize}
 
-A Figura~\ref{fig:arquitetura} apresenta a arquitetura geral da solução.
+A Figura~\ref{fig:arquitetura} ilustra o fluxo de dados e os protocolos de comunicação que interligam a arquitetura geral da solução.
 
-\begin{figure}
+\begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{arquitetura}
+    \includegraphics[width=0.7\textwidth]{arquitetura}
     \caption{Arquitetura geral}
     \label{fig:arquitetura}
 \end{figure}
 
-\subsubsection{Fluxo de atualização das etiquetas}
+\subsubsection{Fluxo de Atualização das Etiquetas}
 
-Sempre que o nome de uma gaveta é alterado no Inventree (quer manualmente quer utilizando a aplicação móvel), o plugin desenvolvido para o projeto deteta essa alteração e inicia automaticamente o processo de sincronização. O fluxo de atualização ocorre da seguinte forma:
+Sempre que nome de uma gaveta sofre modificações no \textit{InvenTree}, seja por ação direta na interface \textit{web} ou por via da aplicação móvel, o \textit{plugin} desenvolvido despoleta um fluxo síncrono de atualização. O encadeamento do fluxo processa-se da seguinte forma:
 
 \begin{enumerate}
-    \item O utilizador altera o nome de uma localização no Inventree ou na aplicação;
-    \item O plugin deteta a alteração;
-    \item O plugin envia um pedido HTTP para o Home Assistant contendo a identificação da etiqueta e o novo conteudo a apresentar;
-    \item O Home Assistant recebe o pedido e encaminha-o para o módulo OpenEPaperLink;
-    \item O OpenEPaperLink comunica com o ponto de acesso ESP32;
-    \item O ESP32 transmite a atualização para a etiqueta e-ink correspondente, que atualiza automaticamente a informação apresentada.
+    \item O utilizador submete uma alteração do nome de uma localização no \textit{InvenTree} ou na aplicação móvel;
+    \item O \textit{plugin} intercetará o evento de alteração de dados;
+    \item O \textit{plugin} dispara um \textit{webhook} (HTTP POST) para o \textit{Home Assistant}, transportando o identificador único da etiqueta e o novo conteúdo gráfico a renderizar;
+    \item O \textit{Home Assistant} processa o \textit{payload} e encaminha a instrução através de \textit{websockets} para o ecossistema \textit{OpenEPaperLink};
+    \item O servidor do \textit{OpenEPaperLink} transmite a alteração para o ponto de acesso ESP32;
+    \item O ESP32 propaga os pacotes de dados via protocolo BLE (\textit{Bluetooth Low Energy}) para a etiqueta \textit{e-ink} alvo, que atualiza a informação exibida no seu ecrã.
 \end{enumerate}
 
-Esta abordagem permite desacoplar o sistema de inventário do hardware responsável pelas etiquetas, tornando a solução mais moduklar e facilitando futuras evoluções.
+Esta abordagem arquitetural garante o isolamento entre as camadas de \textit{software} corporativo e as camadas de abstração de \textit{hardware}, tornando a solução mais modular e facilitando futuras manutenções e evoluções.
 
-\subsubsection{Tecnologias utilizadas}
+\subsubsection{Tecnologias Utilizadas}
 
-A Tabela~\ref{tab:tecnologias} apresenta as principais tecnologias utilizadas durante o desenvolvimento do projeto.
+A Tabela~\ref{tab:tecnologias} apresenta as principais tecnologias, linguagens e ferramentas adotadas no desenvolvimento do ecossistema, especificando as respetivas finalidades operacionais.
 
 \begin{table}[H]
     \centering
-    \begin{tabular}{|1|p{10cm}|}
+    \begin{tabular}{|l|p{7cm}|}
          \hline
-         \textbf{Tecnologia} & \textbf{Finalidade} \\ \hline
-         
-         Inventree & 
-         Sistema de gestão de inventário utilizado como fonte principal dos dados. \\ \hline
-
-         Python &
-         Desenvolvimento do plugin responsável pela sincronização dos dados. \\ \hline
-
-         REST API &
-         Comunicação entre os diferentes componentes do sistema. \\ \hline
-
-         Home Assistant &
-         Plataforma de automação utilizada como intermediário na atualização das etiquetas. \\ \hline
-
-         OpenEPaperLink &
-         Firmware responsável pela gestão do ponto de acesso e das etiquetas eletrónicas. \\ \hline
-
-         ESP32 &
-         Ponto de acesso responsável pela comunicação BLE com as etiquetas e-ink. \\ \hline
-
-         React.js &
-         Utilizado no desenvolvimento da aplicação móvel. \\ \hline
-
-         Git e Github &
-         Controlo de versões e sincronização entre os elementos da equipa. \\ \hline
-         
+         \textbf{Tecnologia / Ferramenta} & \textbf{Finalidade e Aplicação no Projeto} \\ \hline
+         \textit{InvenTree} & Sistema de gestão de inventário utilizado como fonte central de dados (\textit{Single Source of Truth}). \\ \hline
+         \textit{Python} & Linguagem de programação utilizada no desenvolvimento do \textit{plugin} de monitorização e tratamento de eventos do \textit{InvenTree}. \\ \hline
+         \textit{REST API} \& \textit{Webhooks} & Protocolos de comunicação utilizados para a interoperabilidade e troca de dados estruturados entre componentes. \\ \hline
+         \textit{Home Assistant} & Plataforma centralizadora de automação encarregue da orquestração de eventos e ponte de comunicação (\textit{WebSockets}). \\ \hline
+         \textit{OpenEPaperLink} & \textit{Firmware} e ecossistema dedicado à gestão de redes de papel eletrónico e geração de imagens para as \textit{tags}. \\ \hline
+         ESP32 & Microcontrolador de baixo custo utilizado como Ponto de Acesso, responsável pela comunicação BLE com as etiquetas eletrónicas. \\ \hline
+         React Native / React.js & \textit{Framework} utilizado no desenvolvimento da aplicação móvel \textit{Inkstock}. \\ \hline
+         Git \& GitHub & Ferramentas distribuídas para controlo de versões, gestão de ramificações (\textit{branches}) e repositório colaborativo da equipa. \\ \hline
     \end{tabular}
     \caption{Tecnologias utilizadas na solução desenvolvida.}
     \label{tab:tecnologias}
@@ -222,38 +254,35 @@ A Tabela~\ref{tab:tecnologias} apresenta as principais tecnologias utilizadas du
 
 \subsubsection{Plugin do InvenTree}
 
-O plugin foi desenvolvido em Python recorrendo ao sistema de extensões disponibilizado pelo InvenTree. A sua principal responsabilidade consiste em monitorizar alterações efetuadas às localizações do inventário e iniciar o processo de atualização das etiquetas.
+O \textit{plugin} foi desenvolvido em \textit{Python} tirando partido da arquitetura extensível de \textit{plugins} nativa do \textit{InvenTree}. A sua principal responsabilidade consiste em atuar como um escutador ativo (\textit{listener}) sobre os modelos de dados referentes às localizações do inventário (\textit{StockLocation}), permitindo iniciar todo o processo de atualização das etiquetas.
 
-Sempre que ocorre uma alteração ao nome de uma gaveta, o plugin constrói um pedido HTTP contendo a identificação necessária para identificar a etiqueta correspondente e o novo conteúdo e envia esse pedido para um endpoint previamente configurado no Home Assistant.
-
-Esta solução permite que toda a lógica de comunicação com as etiquetas permaneça independente do sistema de inventário, reduzindo o acoplamente entre os diferentes componentes.
+Ao detetar uma operação ou modificação ao nome de uma gaveta, o \textit{plugin} extrai dinamicamente os novos atributos da localização, valida a existência de uma etiqueta associada e encapsula os dados num pedido síncrono HTTP POST destinado a um \textit{endpoint} previamente configurado no \textit{Home Assistant}. Esta conceção previne o acoplamento rígido, garantindo que falhas na infraestrutura de comunicação BLE não corrompam a integridade operacional da base de dados do inventário.
 
 \subsubsection{Aplicação móvel}
 
-Foi igualmente desenvolvida uma aplicação móvel que comunica diretamente com a REST API disponibilizada pelo InvenTree.
+A aplicação móvel desenvolvida atua como o principal ponto de interface tátil para os operadores no laboratório, ligando-se diretamente à REST API disponibilizada pelo \textit{InvenTree}.
 
-A aplicação permite consultar a informação do inventário, pesquisar componentes e visualizar o conteúdo das diferentes localizações. Adicionalmente, possibilita a atualização da informação armazenada no sistema, garantindo que todas as alterações são efetuadas diretamente na base de dados do inventário.
+Através de uma interface responsiva, a aplicação permite consultar a informação do inventário, pesquisar componentes e visualizar o conteúdo das diferentes localizações. A inclusão da câmara do dispositivo móvel como leitor de códigos QR otimiza operacionalmente o fluxo de trabalho, permitindo que a leitura do código do ecrã da etiqueta remeta o utilizador instantaneamente para a ficha técnica da gaveta correspondente, onde este pode efetuar ajustes de quantidade de stock ou renomear a localização. Adicionalmente, possibilita a atualização da informação armazenada no sistema, garantindo que todas as alterações são efetuadas diretamente na base de dados do inventário.
 
-Entre as principais funcionalidades implementadas destacam-se:
+O leque de funcionalidades implementado engloba:
 
 \begin{itemize}
-    \item consulta de componentes;
-    \item pesquisa de localizações;
-    \item localização de componentes;
-    \item visualização do stock disponível;
-    \item leitura de códigos QR para acesso rápido aos componentes de uma gaveta;
-    \item atualização da informação através da API do Inventree.
+    \item Consulta e filtragem avançada de componentes;
+    \item Pesquisa de localizações de armazenamento;
+    \item Visualização em tempo real de volumes de \textit{stock} e alertas de rutura;
+    \item Leitura e descodificação de códigos QR para inventariação expedita;
+    \item Submissão de atualizações diretamente na base de dados central.
 \end{itemize}
 
 \subsubsection{Dificuldades encontradas}
 
-Durante o desenvolvimento do projeto foram identificados diversos desafios técnicos.
+O desenvolvimento do projeto impôs desafios técnicos complexos, de natureza distinta, que exigiram soluções de engenharia adaptativas.
 
-O principal desafio consistiu na integração entre diferentes plataformas, uma vez que cada sistema possui mecanismos próprios de comunicação e autenticação. Esta dificuldade foi ultrapassada através da utilização de REST APIs e da definição de um fluxo de comunicação bem estruturado. O Home Assistant também contribuiu para facilitar a integração dos diferentes componentes.
-
-Outro desafio relacionou-se com a associação entre as localizações existentes no InvenTree e as respetivas etiquetas eletrónicas. Para esse efeito e com o objetivo de tornar a solução o mais adaptável possível foi colocado um identificador na descrição de cada localização que a liga à etiqueta correspondente.
-
-Por último, foi necessário assegurar que a vida útil das etiquetas era suficiente para não serem necessárias substituições frequentes da bateria. Como tal adotamos medidas que permitem uma maior poupança de energia como atualizações menos frequentes mas suficientemente rápidas para se manterem utilizáveis. O firmware OpenEPaperLink foi essencial para este problema visto já ter sido desenvolvido tendo a eficiência energética em consideração.
+\begin{itemize}
+    \item \textbf{Interoperabilidade de Sistemas Heterogéneos:} A integração de plataformas com pilhas tecnológicas e modelos de autenticação distintos constituiu o obstáculo inicial. Este desafio foi superado através da utilização de REST APIs, da definição de um fluxo de comunicação bem estruturado e do uso do \textit{Home Assistant} como uma camada agnóstica de mediação e tradução de protocolos, que facilitou a integração dos diversos componentes.
+    \item \textbf{Mapeamento Físico-Digital Dinâmico:} Associar de forma flexível uma entidade lógica na base de dados (\textit{StockLocation}) a um dispositivo físico (\textit{E-Ink Tag}) sem injetar rigidez no sistema revelou-se complexo. A solução para este problema passou por injetar um metadado indexador único no campo de descrição de cada localização no \textit{InvenTree}, permitindo que o \textit{plugin} resolva univocamente o destino de cada imagem gerada.
+    \item \textbf{Restrições Energéticas e Latência:} Conciliar a necessidade de manter as etiquetas atualizadas com a restrição de autonomia das baterias exigiu uma calibração fina. Ao adotar o ecossistema \textit{OpenEPaperLink}, parametrizou-se uma política de comunicação cíclica otimizada. Embora isto introduza uma restrição de latência controlada (até 40 segundos), garante-se uma operação sustentável a longo prazo, perfeitamente aceitável para a dinâmica de um ambiente de investigação.
+\end{itemize}
 
 \subsection{Solução desenvolvida}
 
@@ -277,12 +306,23 @@ Descrição da validação da solução desenvolvida (por exemplo, resultados de
 	
 \subsection{Trabalho futuro} 
  
- Ideias de melhorias e trabalho futuro. 
+Apesar de o ecossistema desenvolvido ter cumprido com sucesso os objetivos propostos, alcançando a sincronização automática entre o repositório digital e as etiquetas físicas, bem como a acessibilidade via aplicação móvel, ainda existem diversas oportunidades de melhoria e novas linhas de desenvolvimento:
+
+\begin{itemize}
+    \item \textbf{Otimização Dinâmica de Consumo Energético:} Investigar e calibrar de forma mais fina os intervalos de comunicação (\textit{check-in}) e os estados de suspensão profunda (\textit{sleep}) das etiquetas eletrónicas. A implementação de políticas adaptativas, que reduzam a frequência de atualização fora do horário laboral ou em épocas de menor rotatividade de \textit{stock}, poderá estender significativamente a longevidade das baterias.
+    \item \textbf{Inventariação e Processamento em Lote:} Expandir as capacidades da aplicação móvel \textit{Inkstock} através da integração de um algoritmo de leitura sequencial ou processamento de imagem em lote. Esta funcionalidade permitirá aos investigadores digitalizar múltiplos códigos QR consecutivamente, agilizando auditorias globais a armários ou bancadas inteiras de componentes.
+    \item \textbf{Generalização e Personalização de \textit{Layouts}:} Desenvolver uma interface visual (Painel de Controlo) no \textit{Home Assistant} ou na própria aplicação móvel que permita aos utilizadores alterarem o \textit{template} gráfico das etiquetas \textit{e-ink} de forma autónoma. Esta customização (ajuste de tipografia, disposição de ícones ou campos de dados adicionais) conferirá maior escalabilidade e adaptabilidade do sistema a outros departamentos da instituição.
+\end{itemize}
 
 \subsection{Impacto ODS}
 
-Caso aplicável, identificar a contribuição do trabalho para os Objetivos de Desenvolvimento Sustentável (ODS) estabelecidos pelas
-Nações Unidas (https://sdgs.un.org/goals), com vista a um futuro mais sustentável e inclusivo. 
+A conceção e implementação deste ecossistema inteligente alinha-se com a Agenda 2030 da Organização das Nações Unidas, contribuindo ativamente para os Objetivos de Desenvolvimento Sustentável (ODS) com vista a um modelo de investigação aplicada mais sustentável, eficiente e inclusivo. O projeto apresenta impactos tangíveis em três objetivos primordiais:
+
+\begin{itemize}
+    \item \textbf{ODS 9 -- Indústria, Inovação e Infraestruturas:} Ao integrar hardware de baixo consumo (\textit{e-ink} e ESP32) com sistemas corporativos de gestão de dados (\textit{InvenTree}), o projeto fomenta a modernização tecnológica de infraestruturas de investigação. A automatização desenvolvida demonstra como a transformação digital e a inovação em sistemas de inventariação laboratorial podem otimizar a eficiência operacional em ambientes reais de I\&D, como a Fraunhofer Portugal.
+    \item \textbf{ODS 12 -- Produção e Consumo Sustentáveis:} A transição de um sistema assente em etiquetas estáticas de papel para sinalização eletrónica reutilizável reduz significativamente o desperdício de consumíveis e o uso de recursos de impressão ao longo do ciclo de vida do laboratório. Adicionalmente, a consistência absoluta dos registos digitais mitiga o risco de perda, obsolescência técnica ou duplicação desnecessária de componentes eletrónicos e materiais, promovendo uma gestão de ativos mais responsável e circular.
+    \item \textbf{ODS 13 -- Ação Climática:} O uso premente da tecnologia de etiquetas (\textit{e-ink}), caracterizada por reter a informação visual de forma estática sem qualquer consumo de corrente e exigir energia apenas nos breves segundos de atualização, reflete uma preocupação direta com a eficiência energética. A adoção de políticas estritas de \textit{sleep} e o ecossistema de baixo impacto ambiental mitigam a pegada de carbono associada à infraestrutura de monitorização do espaço de trabalho.
+\end{itemize}
 
 
 \bibliographystyle{plain} 
