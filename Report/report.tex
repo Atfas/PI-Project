@@ -2,6 +2,7 @@
 \usepackage[portuguese]{babel} % para indice em português
 \usepackage{url}
 \usepackage{graphicx}
+\usepackage{float}
 \graphicspath{ {./figures/} }
 
 
@@ -58,32 +59,36 @@
  
 \section{Introdução}
 
-
+O presente relatório descreve o trabalho desenvolvido no âmbito do projeto integrador, cujo objetivo consiste no desenvolvimento de um sistema para gestão e atualização de etiquetas eletrônicas e-ink integradas com um sistema de inventário digital.
 	
 	\subsection{Enquadramento}
+
+    O projeto foi desenvolvido no contexto de um ambiente de investigação e desenvolvimento tecnológico, semelhante ao existente em organizações de investigação aplicada, como a Fraunhofer Portugal.
 	
-	O presente relatório descreve o trabalho desenvolvido no âmbito do projeto integrador, cujo objetivo consiste no desenvolvimento de um sistema para gestão e atualização de etiquetas eletrônicas e-ink integradas com um sistema de inventário digital. Este relatório apresenta o contexto em que o projeto foi realizado, o problema identificado e as motivações que levaram ao desenvolvimento da solução proposta.
+	Neste tipo de organizações, é comum existirem diversos espaços de armazenamento, como gavetas, armários ou caixas, utilizados para guardar componentes, materiais de laboratório, protótipos e equipamentos relacionados com diferentes projetos.
+	
+	A gestão destes materiais é frequentemente feita através de etiquetas em papel, o que origina inconsistências entre o estado real do inventário e os registos digitais existentes, dificultando a identificação rápida dos recursos disponíveis.
 
-    
-    O projeto foi desenvolvido no contexto de um ambiente de investigação e desenvolvimento tecnológico, semelhante ao existente em organizações de investigação aplicada, como a Fraunhofer Portugal. Neste tipo de organizações, é comum existirem diversos espaços de armazenamento, como gavetas, armários ou caixas, utilizados para guardar componentes, materiais de laboratório, protótipos e equipamentos relacionados com diferentes projetos. A gestão eficiente destes materiais é fundamental para garantir organização, acessibilidade e rapidez na identificação dos recursos disponíveis.
-    
-    No entanto, em muitos casos, a gestão deste inventário é feita através de etiquetas em papel ou sistemas pouco integrados, o que dificulta a atualização frequente da informação e pode originar inconsistências entre o estado real do inventário e os registos existentes. Este tipo de abordagem pode levar a erros na identificação de materiais, perda de tempo na procura de itens e dificuldades na manutenção organizada do espaço de trabalho.
-    
-    Neste contexto, as etiquetas eletrônicas baseadas em tecnologia e-ink apresentam-se como uma alternativa interessante, uma vez que permitem atualizar remotamente a informação apresentada, mantendo um consumo energético muito reduzido. Assim, surge a motivação para desenvolver um sistema que integre estas etiquetas com uma base de dados de inventário e permita a sua gestão através de uma aplicação móvel, facilitando a organização e manutenção correta do inventário.
-
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\textwidth]{FraunhoferAICOS}
+		\caption{Fraunhofer Portugal AICOS}
+	\end{figure}
 	
 	\subsection{Objetivos e resultados esperados}
 	
-	Indicar os objetivos do trabalho e resultados esperados.
+	Reconhecendo os desafios da gestão de inventário, o projeto visou desenvolver um sistema que permitisse manter as etiquetas físicas das gavetas automaticamente sincronizadas com a informação da base de dados do inventário.
 
-
-
+	Os objetivos principais foram integrar etiquetas e-ink com o Inventree, de forma a que qualquer alteração no nome de uma localização se reflita automaticamente na etiqueta física correspondente. Além disso, desenvolver uma aplicação móvel que permitisse ao utilizador consultar o stock e gerir o inventário através da leitura de um código QR.
+	
+	Desta forma, o sistema deverá eliminar a necessidade de atualização manual de etiquetas, garantindo que a informação física está sempre consistente com os registos digitais.
     
 	\subsection{Estrutura do relatório}
 	
-	Explicar a estrutura do relatório.
-	
-	
+	Este relatório está estruturado em quatro seções. A Seção 1 apresenta uma introdução ao projeto, incluindo o contexto, os objetivos e os resultados esperados. 
+	A Seção 2 descreve a metodologia e as principais atividades realizadas durante o projeto, abrangendo a metodologia utilizada, as partes interessadas envolvidas e as atividades desenvolvidas. 
+	A Seção 3 apresenta o desenvolvimento da solução, incluindo requisitos, arquitetura e tecnologias utilizadas, bem como a validação da solução desenvolvida. 
+	Por fim, a Seção 4 conclui o relatório com um resumo dos resultados alcançados, das lições aprendidas e de sugestões para trabalhos futuros.
 
 
 \section{Metodologia utilizada e principais atividades desenvolvidas}
