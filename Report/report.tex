@@ -283,10 +283,113 @@ O desenvolvimento do projeto impôs desafios técnicos complexos, de natureza di
     \item \textbf{Mapeamento Físico-Digital Dinâmico:} Associar de forma flexível uma entidade lógica na base de dados (\textit{StockLocation}) a um dispositivo físico (\textit{E-Ink Tag}) sem injetar rigidez no sistema revelou-se complexo. A solução para este problema passou por injetar um metadado indexador único no campo de descrição de cada localização no \textit{InvenTree}, permitindo que o \textit{plugin} resolva univocamente o destino de cada imagem gerada.
     \item \textbf{Restrições Energéticas e Latência:} Conciliar a necessidade de manter as etiquetas atualizadas com a restrição de autonomia das baterias exigiu uma calibração fina. Ao adotar o ecossistema \textit{OpenEPaperLink}, parametrizou-se uma política de comunicação cíclica otimizada. Embora isto introduza uma restrição de latência controlada (até 40 segundos), garante-se uma operação sustentável a longo prazo, perfeitamente aceitável para a dinâmica de um ambiente de investigação.
 \end{itemize}
-
 \subsection{Solução desenvolvida}
 
-Apresentar a solução desenvolvida na ótica do utilizador, com ajuda de screenshots.
+A solução desenvolvida resulta da integração entre o sistema de inventário InvenTree, a plataforma Home Assistant, o sistema OpenEPaperLink e uma aplicação móvel. Cada um destes componentes desempenha uma função específica, permitindo manter sincronizada a informação existente no inventário digital com as etiquetas eletrónicas instaladas nas gavetas.
+
+\subsubsection{OpenEPaperLink}
+
+O OpenEPaperLink foi utilizado como solução responsável pela gestão das etiquetas eletrónicas. Para tal, foi instalado o firmware oficial num dispositivo ESP32 configurado como \textit{Access Point}, responsável pela comunicação BLE com todas as etiquetas e-ink.
+
+Após a configuração inicial, as etiquetas são automaticamente detetadas e registadas no sistema, ficando disponíveis para gestão através da interface gráfica.
+
+Cada etiqueta possui um identificador único (\textit{Tag ID}), utilizado posteriormente para associar a etiqueta à respetiva localização existente no InvenTree. Desta forma, sempre que é necessário atualizar uma etiqueta, basta indicar o respetivo identificador e o conteúdo a apresentar.
+
+A Figura~\ref{fig:openepaperlink} apresenta a interface do OpenEPaperLink utilizada para monitorizar as etiquetas registadas.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\textwidth]{openepaperlink}
+    \caption{Interface OpenEPaperLink}
+    \label{fig:openepaperlink}
+\end{figure}
+
+\subsubsection{InvenTree}
+
+O InvenTree já era utilizado pela Fraunhofer como sistema central de gestão de inventário, pelo que o objetivo consistiu em estender as suas funcionalidades sem alterar o seu funcionamento habitual.
+
+Para isso foi desenvolvido um plugin em Python recorrendo ao sistema de extensões disponibilizado pelo InvenTree. O plugin monitoriza alterações efetuadas às localizações do inventário, nomeadamente alterações ao nome das gavetas.
+
+Sempre que uma alteração é detetada, o plugin obtém a identificação da etiqueta associada à localização e envia automaticamente um pedido HTTP para o Home Assistant contendo:
+
+\begin{itemize}
+    \item o identificador da etiqueta;
+    \item o novo nome da localização;
+    \item a informação necessária para autenticação do pedido.
+\end{itemize}
+
+O plugin foi posteriormente publicado no repositório PyPI, permitindo a sua instalação diretamente através do gestor de pacotes do Python e simplificando futuras atualizações.
+
+Para estabelecer a associação entre uma localização do InvenTree e a respetiva etiqueta eletrónica, foi utilizado o campo de descrição da localização. Neste campo é armazenado o identificador único (\textit{Tag ID}) correspondente à etiqueta instalada na gaveta.
+
+\subsubsection{Home Assistant}
+
+O Home Assistant foi utilizado como plataforma intermédia entre o InvenTree e o OpenEPaperLink.
+
+Uma vez que o Home Assistant já se encontrava instalado na infraestrutura da Fraunhofer, apenas foi necessário configurar os serviços necessários ao funcionamento da solução.
+
+Em primeiro lugar, foi adicionada a integração OpenEPaperLink, permitindo ao Home Assistant comunicar diretamente com o ponto de acesso ESP32.
+
+Posteriormente foi criada uma rotina de automação que pode ser invocada através da API REST do Home Assistant. Esta rotina recebe os dados enviados pelo plugin do InvenTree e executa automaticamente a atualização da etiqueta correspondente.
+
+Esta abordagem permitiu centralizar toda a lógica de comunicação com as etiquetas no Home Assistant, mantendo o plugin do InvenTree responsável apenas pela deteção de alterações, possibilitando futuras alterações ao sistema de inventário sem alterar nenhum outro componente.
+
+\subsubsection{Aplicação móvel}
+
+Foi desenvolvida uma aplicação móvel em React destinada a facilitar a consulta e atualização do inventário pelos colaboradores da Fraunhofer.
+
+Ao contrário da sincronização das etiquetas, a aplicação comunica diretamente com a API REST do InvenTree, garantindo que toda a informação apresentada corresponde ao estado atual do inventário.
+
+A aplicação comunica diretamente com a API REST do InvenTree, que se encontra disponível apenas na rede interna da Fraunhofer. Por este motivo, a aplicação foi instalada num smartphone disponibilizado pela empresa, já configurado para aceder à rede interna, permitindo aos colaboradores consultar e atualizar o inventário sem necessidade de configurações adicionais.
+
+As Figuras~\ref{fig:app1},~\ref{fig:app2} e ~\ref{fig:app3} apresentam alguns ecrãs da aplicação desenvolvida.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\textwidth]{app1}
+    \caption{Aplicação Móvel 1}
+    \label{fig:app1}
+\end{figure}
+
+\begin{figure}
+
+    \centering
+    \includegraphics[width=0.9\textwidth]{app2}
+    \caption{Aplicação Móvel 2}
+    \label{fig:app2}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\textwidth]{app3}
+    \caption{Aplicação Móvel 3}
+    \label{fig:app3}
+\end{figure}
+
+\subsubsection{Etiquetas eletrónicas}
+
+As etiquetas eletrónicas constituem, além da aplicação, o principal elemento de interação física com o sistema desenvolvido, permitindo identificar rapidamente o conteúdo de cada gaveta sem necessidade de recorrer ao sistema de inventário.
+
+Cada etiqueta apresenta o nome da localização, sincronizado automaticamente com o InvenTree, garantindo que qualquer alteração efetuada no sistema é refletida na etiqueta sem intervenção manual.
+
+Além do nome da localização, cada etiqueta inclui um código QR gerado durante o processo de atualização. Este código permite o acesso rápido à informação correspondente através da aplicação móvel, eliminando a necessidade de pesquisas manuais no inventário.
+
+A utilização de tecnologia e-ink apresenta ainda a vantagem de consumir energia apenas durante a atualização da imagem, permitindo uma elevada autonomia das etiquetas.
+
+A Figura~\ref{fig:etiqueta} apresenta um exemplo de uma etiqueta utilizada no sistema desenvolvido.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.45\textwidth]{etiqueta}
+    \caption{Exemplo de uma etiqueta eletrónica utilizada no sistema.}
+    \label{fig:etiqueta}
+\end{figure}
+
+\subsubsection{Comunicação e segurança}
+
+A comunicação entre o plugin do InvenTree e o Home Assistant é efetuada através da API REST disponibilizada pelo Home Assistant. Para garantir que apenas clientes autorizados podem invocar a rotina de atualização das etiquetas, foi utilizado um token de acesso de longa duração (\textit{Long-Lived Access Token}), incluído no cabeçalho de autenticação de cada pedido HTTP.
+
+De forma semelhante, a aplicação autentica-se junto da API REST do InvenTree através de um token de acesso, garantindo que apenas utilizadores autorizados podem consultar ou modificar a informação do inventário.
 
 \subsection{Validação}
 
