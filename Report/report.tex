@@ -156,7 +156,65 @@ A fim de otimizar o progresso e mitigar riscos de dependência mútua, o trabalh
 
 \subsection{Atividades desenvolvidas}
 
-Descrever as atividades realizadas ao londo do tempo (incluindo eventos relevantes, como apresentações, reuniões com clientes, etc.) e respectivos deliverables, recorrendo tipicamente a um diagrama de Gantt\cite{gantt} e a uma descrição sumária de cada atividade/deliverable. 
+Ao longo do projeto, foram desenvolvidas diversas atividades, incluindo 
+pesquisa, definição de requisitos, desenvolvimento de software, integração 
+de sistemas e validação da solução. Informação detalhada sobre a calendarização 
+de cada atividade pode ser consultada no diagrama de Gantt apresentado na 
+Figura~\ref{fig:gantt}.
+
+\begin{enumerate}
+    \item \textbf{Pesquisa:}
+    \begin{itemize}
+        \item Estudo das tecnologias envolvidas, nomeadamente o Inventree, 
+        o OpenEPaperLink, o Home Assistant e as etiquetas \textit{e-ink}.
+    \end{itemize}
+
+    \item \textbf{Definição de Requisitos e Arquitetura:}
+    \begin{itemize}
+        \item Definição dos requisitos funcionais, não funcionais e restrições 
+        do sistema, em articulação com a equipa da Fraunhofer Portugal.
+        \item Definição da arquitetura do sistema, incluindo a integração 
+        entre o Inventree, o Home Assistant, o OpenEPaperLink e a aplicação 
+        móvel.
+    \end{itemize}
+
+    \item \textbf{Integração com o Home Assistant:}
+    \begin{itemize}
+        \item Implementação da automação responsável por enviar o conteúdo 
+        atualizado para as etiquetas \textit{e-ink} via OpenEPaperLink.
+    \end{itemize}
+
+    \item \textbf{Desenvolvimento do \textit{Plugin} para o Inventree:}
+    \begin{itemize}
+        \item Implementação do \textit{plugin} utilizando o EventMixin do 
+        Inventree para detetar alterações no nome de localizações.
+        \item Desenvolvimento da lógica de envio de notificações para o 
+        Home Assistant aquando da deteção de alterações.
+    \end{itemize}
+
+    \item \textbf{Desenvolvimento da Aplicação Móvel:}
+    \begin{itemize}
+        \item Desenho e implementação da interface da aplicação móvel.
+        \item Implementação da funcionalidade de leitura de código QR e 
+        consulta de dados no Inventree.
+        \item Implementação das funcionalidades de atualização de nomes 
+        de localizações e níveis de stock.
+    \end{itemize}
+
+    \item \textbf{Testes e Validação:}
+    \begin{itemize}
+        \item Validação do sistema face aos requisitos definidos.
+        \item Recolha de feedback junto da equipa da Fraunhofer Portugal 
+        e incorporação de melhorias.
+    \end{itemize}
+\end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{diagramaGantt}
+    \caption{Diagrama de Gantt para distribuição trabalho}
+    \label{fig:gantt}
+\end{figure}
 
 
 \section{Desenvolvimento da solução}
